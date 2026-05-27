@@ -15,7 +15,7 @@ export type Oshi = {
 
 type SortKey = "kana" | "date";
 
-export function OshiList({ oshiList }: { oshiList: Oshi[] }) {
+export function OshiListView({ oshiList }: { oshiList: Oshi[] }) {
   const [sortKey, setSortKey] = useState<SortKey>("date");
 
   const sorted = [...oshiList].sort((a, b) => {
