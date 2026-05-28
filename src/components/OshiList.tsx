@@ -4,26 +4,21 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { UserRound } from "lucide-react";
+import { type Oshi } from "@/lib/types";
 
-export type Oshi = {
-  id: string;
-  name: string;
-  imageUrl?: string;
-  description?: string;
-  addedAt: string;
-}
-
-type SortKey = "kana" | "date";
+type SortKey = "random" | "date" | "kana";
 
 export function OshiListView({ oshiList }: { oshiList: Oshi[] }) {
-  const [sortKey, setSortKey] = useState<SortKey>("date");
+  const [sortKey, setSortKey] = useState<SortKey>("random");
 
-  const sorted = [...oshiList].sort((a, b) => {
-    if (sortKey === "kana") {
-      return a.name.localeCompare(b.name, "ja");
-    }
-    return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
-  });
+  let sorted: Oshi[];
+  if (sortKey === "kana") {
+    sorted = [...oshiList].sort((a, b) => a.name.localeCompare(b.name, "ja"));
+  } else if (sortKey === "random") {
+    sorted = [...oshiList].sort(() => Math.random() - 0.5);
+  } else {
+    sorted = [...oshiList].sort((a, b) => new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime());
+  }
 
   return (
     <div className="min-h-screen bg-zinc-100 p-8">
@@ -34,6 +29,12 @@ export function OshiListView({ oshiList }: { oshiList: Oshi[] }) {
       <div className="mb-6 flex items-center justify-between">
         {/* 並べ替えボタン */}
         <div className="flex gap-2">
+          <button
+            onClick={() => setSortKey("random")}
+            className={sortKey === "random" ? "rounded-full bg-teal-500 px-4 py-1 text-sm text-white" : "rounded-full bg-white px-4 py-1 text-sm text-zinc-400"}
+          >
+            ランダム
+          </button>
           <button
             onClick={() => setSortKey("date")}
             className={sortKey === "date" ? "rounded-full bg-teal-500 px-4 py-1 text-sm text-white" : "rounded-full bg-white px-4 py-1 text-sm text-zinc-400"}
