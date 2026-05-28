@@ -1,6 +1,6 @@
-import { OshiListView } from "@/components/OshiList";
+import { OshiListDynamic } from "@/components/OshiListDynamic";
 import { oshiList } from "@/lib/store";
 
 export default function Home() {
-  return <OshiListView oshiList={oshiList} />;
+  return <OshiListDynamic oshiList={oshiList} />;
 }
