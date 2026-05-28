@@ -61,37 +61,38 @@ export function OshiListView({ oshiList }: { oshiList: Oshi[] }) {
       {/* カードグリッド */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {sorted.map((oshi) => (
-          <div
-            key={oshi.id}
-            className="flex flex-col items-center gap-2 rounded-3xl border-2 border-zinc-200 bg-white p-5 shadow-sm"
-          >
-            {/* <img>（普通のHTMLタグ）
-              → 画像サイズの最適化なし
-              → 読み込みが遅くなる可能性がある
+          <Link href={`/oshi/${oshi.id}`} key={oshi.id}>
+            <div
+              className="flex flex-col items-center gap-2 rounded-3xl border-2 border-zinc-200 bg-white p-5 shadow-sm"
+            >
+              {/* <img>（普通のHTMLタグ）
+                → 画像サイズの最適化なし
+                → 読み込みが遅くなる可能性がある
 
-            <Image>（Next.js のコンポーネント）
-              → 自動で画像を最適化・圧縮してくれる
-              → 必要なときだけ読み込む（遅延読み込み）
-              → 表示が速い*/}
-            {oshi.imageUrl ? (
-              <Image
-                src={oshi.imageUrl}
-                alt={oshi.name}
-                width={96}
-                height={96}
-                className="rounded-full object-cover"
-              />
-            ) : (
-              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-zinc-200">
-                <UserRound className="h-12 w-12 text-zinc-400" strokeWidth={1.5} />
-              </div>
-            )}
-            <p className="font-bold text-zinc-700">{oshi.name}</p>
-            <p className="text-center text-sm text-zinc-400">{oshi.description}</p>
-            <span className="rounded-full bg-teal-50 px-3 py-0.5 text-xs text-teal-600">
-              {new Date(oshi.addedAt).toLocaleDateString("ja-JP")} 追加
-            </span>
-          </div>
+              <Image>（Next.js のコンポーネント）
+                → 自動で画像を最適化・圧縮してくれる
+                → 必要なときだけ読み込む（遅延読み込み）
+                → 表示が速い*/}
+              {oshi.imageUrl ? (
+                <Image
+                  src={oshi.imageUrl}
+                  alt={oshi.name}
+                  width={96}
+                  height={96}
+                  className="rounded-full object-cover"
+                />
+              ) : (
+                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-zinc-200">
+                  <UserRound className="h-12 w-12 text-zinc-400" strokeWidth={1.5} />
+                </div>
+              )}
+              <p className="font-bold text-zinc-700">{oshi.name}</p>
+              <p className="text-center text-sm text-zinc-400">{oshi.description}</p>
+              <span className="rounded-full bg-teal-50 px-3 py-0.5 text-xs text-teal-600">
+                {new Date(oshi.addedAt).toLocaleDateString("ja-JP")} 追加
+              </span>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
