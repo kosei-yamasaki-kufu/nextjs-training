@@ -89,7 +89,7 @@ export function OshiListView({ oshiList }: { oshiList: Oshi[] }) {
             <p className="font-bold text-zinc-700">{oshi.name}</p>
             <p className="text-center text-sm text-zinc-400">{oshi.description}</p>
             <span className="rounded-full bg-teal-50 px-3 py-0.5 text-xs text-teal-600">
-              {oshi.addedAt} 追加
+              {new Date(oshi.addedAt).toLocaleDateString("ja-JP")} 追加
             </span>
           </div>
         ))}
